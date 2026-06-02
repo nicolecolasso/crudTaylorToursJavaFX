@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class MainController
 {
@@ -35,8 +33,8 @@ public class MainController
     @FXML
     private void carregarTours(){
         TaylorToursDAO objToursDAO = new TaylorToursDAO();
-        ArrayList<TaylorToursDTO> listaTours = objToursDAO.visualizarTour();
-        tblTaylorTours.setItems(FXCollections.observableArrayList(listaTours));
+        ArrayList<TaylorToursDTO> listaTours = objToursDAO.visualizarTour(); //recebe o return do dao
+        tblTaylorTours.setItems(FXCollections.observableArrayList(listaTours)); //encaixa o return na tabela por meio do setItems, utilizando as bibliotecas e com o observable encaixa na tabela, já que é do mesmo tipo do arraylist e já foi indicado no initialize
     }
 
     @FXML
@@ -52,9 +50,9 @@ public class MainController
 
     @FXML
     private void carregarCampos() {
-        TaylorToursDTO tourDto = tblTaylorTours.getSelectionModel().getSelectedItem();
+        TaylorToursDTO tourDto = tblTaylorTours.getSelectionModel().getSelectedItem(); //cria objeto DTO que recebe informações da tabela
 
-        if (tourDto != null) {
+        if (tourDto != null) { //se não estiver vazio ele atribui os valores
             txtId.setText(String.valueOf(tourDto.getIdTour()));
             txtNome.setText(tourDto.getNomeTour());
             txtAlbumBase.setText(tourDto.getAlbumBase());
@@ -65,13 +63,13 @@ public class MainController
     }
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb){
-        colId.setCellValueFactory(new PropertyValueFactory<>("id_tour"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome_tour"));
-        colAlbumBase.setCellValueFactory(new PropertyValueFactory<>("album_base"));
-        colDataInicio.setCellValueFactory(new PropertyValueFactory<>("data_inicio"));
-        colQtdeShows.setCellValueFactory(new PropertyValueFactory<>("quantidade_shows"));
-        colFaturamento.setCellValueFactory(new PropertyValueFactory<>("faturamento_estimado"));
+    public void initialize(){ //coloca uma etiqueta nas colunas do scene builder vinculado aos atributos do DTO
+        colId.setCellValueFactory(new PropertyValueFactory<>("idTour"));//cria um novo objeto e coloca a etiqueta no valor da coluna
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nomeTour"));
+        colAlbumBase.setCellValueFactory(new PropertyValueFactory<>("albumBase"));
+        colDataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+        colQtdeShows.setCellValueFactory(new PropertyValueFactory<>("quantidadeShows"));
+        colFaturamento.setCellValueFactory(new PropertyValueFactory<>("faturamentoEstimado"));
         carregarTours();
     }
 
@@ -94,6 +92,7 @@ public class MainController
         tourDao.cadastrarTour(tourDto);
 
         carregarTours();
+        limparCampos();
     }
 
     @FXML
