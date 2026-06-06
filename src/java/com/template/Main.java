@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/* Carrega o contêiner FXML principal e inicializa o palco gráfico da aplicação. */
+
 public class Main extends Application
 {
     @Override

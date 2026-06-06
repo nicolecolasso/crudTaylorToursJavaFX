@@ -10,6 +10,12 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/*
+    Classe Controladora da Interface Gráfica (View).
+    Gerencia os eventos dos componentes FXML, realiza a validação dos dados de entrada
+    e faz a ponte de comunicação com o DAO.
+*/
+
 public class MainController
 {
     @FXML private Button btnSalvar;
@@ -66,7 +72,7 @@ public class MainController
     private void carregarCampos() {
         TaylorToursDTO tourDto = tblTaylorTours.getSelectionModel().getSelectedItem(); //cria objeto DTO que recebe informações da tabela
 
-        if (tourDto != null) { //se não estiver vazio ele atribui os valores
+        if (tourDto != null) {
             txtId.setText(String.valueOf(tourDto.getIdTour()));
             txtNome.setText(tourDto.getNomeTour());
             txtAlbumBase.setText(tourDto.getAlbumBase());
@@ -81,14 +87,15 @@ public class MainController
     }
 
     @FXML
-    public void initialize(){ //coloca uma etiqueta nas colunas do scene builder vinculado aos atributos do DTO
-        colId.setCellValueFactory(new PropertyValueFactory<>("idTour"));//cria um novo objeto e coloca a etiqueta no valor da coluna
+    public void initialize(){
+        colId.setCellValueFactory(new PropertyValueFactory<>("idTour"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nomeTour"));
         colAlbumBase.setCellValueFactory(new PropertyValueFactory<>("albumBase"));
         colDataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
         colQtdeShows.setCellValueFactory(new PropertyValueFactory<>("quantidadeShows"));
         colFaturamento.setCellValueFactory(new PropertyValueFactory<>("faturamentoEstimado"));
         imgTaylor.setImage(new Image(getClass().getResourceAsStream("/com/template/taylor.png")));
+        /* Carregamento de fontes customizadas TrueType (.ttf) */
         String[] fontes = {
                 "Antonio.ttf", "EBGaramond.ttf", "GreatVibe.ttf", "ImperialScript.ttf",
                 "InstrumentSerif.ttf", "Inter.ttf", "Montserrat.ttf",
@@ -106,14 +113,17 @@ public class MainController
 
     @FXML
     private void btnSalvarAction(ActionEvent event) {
+        //Validação dos campos obrigatórios
         if (txtNome.getText().isEmpty() || txtAlbumBase.getText().isEmpty() || dpDataInicio.getValue() == null) {
             mostrarAviso("Preencha todos os campos obrigatórios!", "red");
             return;
         }
+        //try catch para garantir que todos os campos numéricos são numéricos
         try{
             String nomeTour = txtNome.getText();
             String albumBase = txtAlbumBase.getText();
             java.time.LocalDate dataInicio = dpDataInicio.getValue();
+            // Validação para evitar falhas de compilação caso campos não obrigatórios sejam enviados vazios
             int quantidadeShows = txtQtdeShows.getText().isEmpty() ? 0 : Integer.parseInt(txtQtdeShows.getText());
             double faturamentoEstimado = txtFaturamentoEstimado.getText().isEmpty() ? 0 : Double.parseDouble(txtFaturamentoEstimado.getText());
 
@@ -186,17 +196,14 @@ public class MainController
 
     @FXML
     private void btnSobreAction(ActionEvent event) {
-        // Cria o alerta do tipo INFORMATION (Informativo)
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
 
-        // Define os textos da janela
         alerta.setTitle("Sobre o Sistema: Gerenciador de Turnês Taylor Swift");
         alerta.setHeaderText("Este programa permite o controle sobre a história dos palcos de uma das maiores artistas do século,\n desde a Fearless Tour até o fenômeno global The Eras Tour");
         alerta.setContentText("Bem-vindo ao Sistema de Histórico de Turnês!\n" +
                 "Aqui você pode cadastrar novas datas, atualizar o faturamento dos shows, listar as turnês de cada era e deletar registros antigos. \n" +
                 "Explore dados sobre as datas, álbuns base e quantidade de shows que definiram a trajetória da Taylor Swift nos palcos do mundo inteiro.");
 
-        // Exibe o alerta na tela e espera o usuário clicar em OK
         alerta.showAndWait();
     }
 }
