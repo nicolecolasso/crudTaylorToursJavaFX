@@ -6,67 +6,61 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+<AnchorPane prefHeight="430.0" prefWidth="850.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="606.0">
+      <Pane prefHeight="430.0" prefWidth="850.0">
          <children>
-            <Button fx:id="btnSalvar" layoutX="38.0" layoutY="249.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: C19A6B; -fx-font-family: &quot;EB Garamond&quot;;" text="salvar" />
-            <Button fx:id="btnEditar" layoutX="38.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: blue; -fx-font-family: 'Inter'; -fx-font-weight: bold;" text="Editar" textFill="WHITE">
-               <font>
-                  <Font name="Inter Regular" size="12.0" />
-               </font></Button>
-            <Button fx:id="btnDeletar" layoutX="38.0" layoutY="341.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="26.0" prefWidth="54.0" style="-fx-background-color: FFA500; -fx-font-family: &quot;Oswald&quot;;" text="Deletar" />
-            <TableView fx:id="tblTaylorTours" layoutX="121.0" layoutY="180.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="451.0" style="-fx-background-radius: 2px;">
-              <columns>
-                <TableColumn fx:id="colId" editable="false" prefWidth="75.0" style="-fx-background-color: FFD700; -fx-font-family: &quot;Montserrat&quot;;" text="ID" />
-                <TableColumn fx:id="colNome" editable="false" prefWidth="75.0" style="-fx-background-color: A689E1; -fx-font-family: &quot;Great Vibes&quot;; -fx-font-size: 17;" text="Nome" />
-                  <TableColumn fx:id="colAlbumBase" editable="false" prefWidth="75.0" style="-fx-background-color: b22222; -fx-font-family: &quot;Antonio&quot;;" text="ÁLBUM BASE" />
-                  <TableColumn fx:id="colDataInicio" editable="false" prefWidth="75.0" style="-fx-background-color: ADD8E6; -fx-font-family: &quot;Permanent Marker&quot;;" text="Data Início" />
-                  <TableColumn fx:id="colQtdeShows" editable="false" prefWidth="75.0" style="-fx-background-color: FF8DA1; -fx-font-family: &quot;Imperial Script&quot;; -fx-font-size: 16;" text="Qtde Shows" />
-                  <TableColumn fx:id="colFaturamento" editable="false" prefWidth="75.0" style="-fx-background-color: #808080; -fx-font-family: 'EB Garamond';" text="faturamento" />
-              </columns>
+            <Button fx:id="btnLimpar" layoutX="25.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #FF8DA1; -fx-font-family: 'Imperial Script'; -fx-font-size: 16; -fx-cursor: hand;" text="↺ Limpar" textFill="BLACK" />
+
+            <Button fx:id="btnSalvar" layoutX="25.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnSalvarAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #808080; -fx-font-family: 'EB Garamond'; -fx-font-size: 12; -fx-cursor: hand;" text="✔ salvar" textFill="WHITE" />
+
+            <Button fx:id="btnEditar" disable="true" layoutX="25.0" layoutY="270.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #C19A6B; -fx-font-family: 'EB Garamond'; -fx-font-size: 12; -fx-cursor: hand;" text="✎ editar" textFill="BLACK" />
+
+            <Button fx:id="btnDeletar" disable="true" layoutX="25.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: blue; -fx-font-family: 'Inter'; -fx-font-size: 12; -fx-cursor: hand;" text="🗑 Deletar" textFill="WHITE" />
+
+            <TableView fx:id="tblTaylorTours" layoutX="125.0" layoutY="180.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="515.0" style="-fx-background-radius: 2px;">
+               <columns>
+                  <TableColumn fx:id="colId" editable="false" prefWidth="35.0" style="-fx-font-family: 'the Rochester'; -fx-alignment: 'center';" text="ID" />
+
+                  <TableColumn fx:id="colNome" editable="false" prefWidth="135.0" style="-fx-font-family: 'Montserrat'; -fx-alignment: 'center';" text="Nome" />
+
+                  <TableColumn fx:id="colAlbumBase" editable="false" prefWidth="85.0" style="-fx-font-family: 'Great Vibes'; -fx-font-size: 14; -fx-alignment: 'center';" text="Álbum de Base" />
+
+                  <TableColumn fx:id="colDataInicio" editable="false" prefWidth="95.0" style="-fx-font-family: 'Antonio'; -fx-alignment: 'center';" text="DATA INÍCIO" />
+
+                  <TableColumn fx:id="colQtdeShows" editable="false" prefWidth="45.0" style="-fx-font-family: 'Permanent Marker'; -fx-alignment: 'center';" text="Shows" />
+
+                  <TableColumn fx:id="colFaturamento" editable="false" prefWidth="120.0" style="-fx-font-family: 'OPTIEngraversOldEnglish'; -fx-alignment: 'center';" text="faturamento" />
+               </columns>
             </TableView>
-            <TextField fx:id="txtId" editable="false" layoutX="110.0" layoutY="66.0" prefHeight="25.0" prefWidth="171.0" />
-            <Label layoutX="22.0" layoutY="70.0" prefHeight="17.0" prefWidth="19.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="ID">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label layoutX="22.0" layoutY="108.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="Nome">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label layoutX="20.0" layoutY="141.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="Álbum de base">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label layoutX="288.0" layoutY="106.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="Quantidade de shows">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="292.0" layoutY="70.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="Data de início">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <Label layoutX="292.0" layoutY="141.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="Faturamento estimado">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <TextField fx:id="txtNome" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="171.0" />
-            <TextField fx:id="txtQtdeShows" layoutX="416.0" layoutY="104.0" prefHeight="25.0" prefWidth="171.0" />
-            <TextField fx:id="txtFaturamentoEstimado" layoutX="416.0" layoutY="137.0" prefHeight="25.0" prefWidth="171.0" />
-            <TextField fx:id="txtAlbumBase" layoutX="110.0" layoutY="137.0" prefHeight="25.0" prefWidth="171.0" />
-            <Label layoutX="202.0" layoutY="14.0" style="-fx-font-family: &quot;Instrument Serif&quot;;" text="TAYLOR SWIFT TOURS">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnLimpar" layoutX="25.0" layoutY="180.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: 'black'; -fx-font-family: OPTIEngraversOldEnglish;" text="limpar" textFill="WHITE" />
-            <DatePicker fx:id="dpDataInicio" layoutX="415.0" layoutY="66.0" />
+
+            <TextField fx:id="txtId" editable="false" layoutX="110.0" layoutY="66.0" prefHeight="25.0" prefWidth="171.0" promptText="Gerado automaticamente" />
+
+            <Label layoutX="22.0" layoutY="70.0" prefHeight="17.0" prefWidth="19.0" style="-fx-font-family: 'Instrument Serif';" text="ID" />
+            <Label layoutX="22.0" layoutY="108.0" style="-fx-font-family: 'Instrument Serif';" text="Nome *" />
+            <Label layoutX="20.0" layoutY="141.0" style="-fx-font-family: 'Instrument Serif';" text="Álbum de base *" />
+            <Label layoutX="288.0" layoutY="106.0" style="-fx-font-family: 'Instrument Serif';" text="Quantidade de shows" />
+            <Label layoutX="292.0" layoutY="70.0" style="-fx-font-family: 'Instrument Serif';" text="Data de início *" />
+            <Label layoutX="292.0" layoutY="141.0" style="-fx-font-family: 'Instrument Serif';" text="Faturamento estimado" />
+
+            <TextField fx:id="txtNome" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="171.0" promptText="Ex: The Eras Tour" />
+            <TextField fx:id="txtQtdeShows" layoutX="416.0" layoutY="104.0" prefHeight="25.0" prefWidth="171.0" promptText="Ex: 149" />
+            <TextField fx:id="txtFaturamentoEstimado" layoutX="416.0" layoutY="137.0" prefHeight="25.0" prefWidth="171.0" promptText="Ex: 1000000000.00" />
+            <TextField fx:id="txtAlbumBase" layoutX="110.0" layoutY="137.0" prefHeight="25.0" prefWidth="171.0" promptText="Ex: Midnights / TTPD" />
+
+            <Label layoutX="202.0" layoutY="14.0" style="-fx-font-family: 'Instrument Serif'; -fx-font-size: 30;" text="TAYLOR SWIFT TOURS" />
+
+            <DatePicker fx:id="dpDataInicio" layoutX="415.0" layoutY="66.0" prefHeight="25.0" prefWidth="171.0" promptText="Selecione a data" />
+
+            <ImageView fx:id="imgTaylor" fitHeight="112.0" fitWidth="180.0" layoutX="655.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
+
+            <Label fx:id="lblMensagem" alignment="center" layoutX="655.0" layoutY="175.0" prefHeight="60.0" prefWidth="180.0" style="-fx-font-family: 'Instrument Serif'; -fx-font-size: 16;" textAlignment="CENTER" wrapText="true" />
+
+            <Button fx:id="btnSobre" layoutX="655.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnSobreAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: FFA500; -fx-font-family: 'Oswald'; -fx-font-size: 16; -fx-cursor: hand;" text="Sobre o sistema" textFill="BLACK" />
          </children>
       </Pane>
    </children>

@@ -1,0 +1,40 @@
+
+#colId.column-header {
+    -fx-background-color: #B2E2E1;
+}
+#colNome.column-header {
+    -fx-background-color: #FFD700;
+}
+#colAlbumBase.column-header {
+    -fx-background-color: #A689E1;
+}
+#colDataInicio.column-header {
+    -fx-background-color: #B22222;
+}
+#colQtdeShows.column-header {
+    -fx-background-color: #ADD8E6;
+}
+#colFaturamento.column-header {
+    -fx-background-color: #000000;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: black !important;
+    -fx-font-weight: bold !important;
+}
+
+#colFaturamento.column-header .label {
+    -fx-text-fill: white !important;
+}
+
+.button {
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 3px;
+}
+
+.button:disabled {
+    -fx-opacity: 0.45;
+    -fx-background-color: #D3D3D3 !important;
+    -fx-border-color: transparent !important;
+}

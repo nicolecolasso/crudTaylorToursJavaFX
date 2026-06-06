@@ -5,7 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class MainController
     @FXML private Button btnEditar;
     @FXML private Button btnDeletar;
     @FXML private Button btnLimpar;
+    @FXML private Button btnSobre;
     @FXML private TableView<TaylorToursDTO> tblTaylorTours;
     @FXML private TableColumn<TaylorToursDTO, Integer> colId;
     @FXML private TableColumn<TaylorToursDTO, String> colNome;
@@ -28,6 +30,8 @@ public class MainController
     @FXML private TextField txtQtdeShows;
     @FXML private TextField txtFaturamentoEstimado;
     @FXML private TextField txtAlbumBase;
+    @FXML private ImageView imgTaylor;
+    @FXML private Label lblMensagem;
 
 
     @FXML
@@ -46,6 +50,16 @@ public class MainController
         txtQtdeShows.clear();
         txtFaturamentoEstimado.clear();
         tblTaylorTours.getSelectionModel().clearSelection();
+        lblMensagem.setText("");
+        btnSalvar.setDisable(false);
+        btnEditar.setDisable(true);
+        btnDeletar.setDisable(true);
+    }
+
+    private void mostrarAviso(String texto, String cor) {
+        lblMensagem.setText(texto);
+        lblMensagem.setWrapText(true);
+        lblMensagem.setStyle("-fx-text-fill: " + cor + "; -fx-font-weight: bold; -fx-alignment: center;");
     }
 
     @FXML
@@ -59,6 +73,10 @@ public class MainController
             dpDataInicio.setValue(tourDto.getDataInicio());
             txtQtdeShows.setText(String.valueOf(tourDto.getQuantidadeShows()));
             txtFaturamentoEstimado.setText(String.valueOf(tourDto.getFaturamentoEstimado()));
+            btnEditar.setDisable(false);
+            btnDeletar.setDisable(false);
+            btnSalvar.setDisable(true);
+            lblMensagem.setText("");
         }
     }
 
@@ -70,36 +88,63 @@ public class MainController
         colDataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
         colQtdeShows.setCellValueFactory(new PropertyValueFactory<>("quantidadeShows"));
         colFaturamento.setCellValueFactory(new PropertyValueFactory<>("faturamentoEstimado"));
+        imgTaylor.setImage(new Image(getClass().getResourceAsStream("/com/template/taylor.png")));
+        String[] fontes = {
+                "Antonio.ttf", "EBGaramond.ttf", "GreatVibe.ttf", "ImperialScript.ttf",
+                "InstrumentSerif.ttf", "Inter.ttf", "Montserrat.ttf",
+                "OPTIEngraversOldEnglish.ttf", "Oswald.ttf", "PermanentMarker.ttf",
+                "the Rochester.ttf"
+        };
+
+        for (String fonte : fontes) {
+            javafx.scene.text.Font.loadFont(
+                    getClass().getResourceAsStream("/com/template/fonts/" + fonte), 12
+            );
+        }
         carregarTours();
     }
 
     @FXML
     private void btnSalvarAction(ActionEvent event) {
-        String nomeTour = txtNome.getText();
-        String albumBase = txtAlbumBase.getText();
-        java.time.LocalDate dataInicio = dpDataInicio.getValue();
-        int quantidadeShows = Integer.parseInt(txtQtdeShows.getText());
-        double faturamentoEstimado = Double.parseDouble(txtFaturamentoEstimado.getText());
+        if (txtNome.getText().isEmpty() || txtAlbumBase.getText().isEmpty() || dpDataInicio.getValue() == null) {
+            mostrarAviso("Preencha todos os campos obrigatórios!", "red");
+            return;
+        }
+        try{
+            String nomeTour = txtNome.getText();
+            String albumBase = txtAlbumBase.getText();
+            java.time.LocalDate dataInicio = dpDataInicio.getValue();
+            int quantidadeShows = txtQtdeShows.getText().isEmpty() ? 0 : Integer.parseInt(txtQtdeShows.getText());
+            double faturamentoEstimado = txtFaturamentoEstimado.getText().isEmpty() ? 0 : Double.parseDouble(txtFaturamentoEstimado.getText());
 
-        TaylorToursDTO tourDto = new TaylorToursDTO();
-        tourDto.setNomeTour(nomeTour);
-        tourDto.setAlbumBase(albumBase);
-        tourDto.setDataInicio(dataInicio);
-        tourDto.setQuantidadeShows(quantidadeShows);
-        tourDto.setFaturamentoEstimado(faturamentoEstimado);
+            TaylorToursDTO tourDto = new TaylorToursDTO();
+            tourDto.setNomeTour(nomeTour);
+            tourDto.setAlbumBase(albumBase);
+            tourDto.setDataInicio(dataInicio);
+            tourDto.setQuantidadeShows(quantidadeShows);
+            tourDto.setFaturamentoEstimado(faturamentoEstimado);
 
-        TaylorToursDAO tourDao = new TaylorToursDAO();
-        tourDao.cadastrarTour(tourDto);
+            TaylorToursDAO tourDao = new TaylorToursDAO();
+            tourDao.cadastrarTour(tourDto);
 
-        carregarTours();
-        limparCampos();
+            mostrarAviso("Turnê cadastrada com sucesso!", "blue");
+
+            carregarTours();
+            limparCampos();
+        } catch (NumberFormatException e) {
+            mostrarAviso("Shows e Faturamento devem ser números.", "red");
+        }
     }
 
     @FXML
     private void btnEditarAction(ActionEvent event) {
         TaylorToursDTO tourSelecionada = tblTaylorTours.getSelectionModel().getSelectedItem();
 
-        if (tourSelecionada != null) {
+        if (txtNome.getText().isEmpty() || txtAlbumBase.getText().isEmpty() || dpDataInicio.getValue() == null) {
+            mostrarAviso("Campos obrigatórios não podem ficar vazios!", "red");
+            return;
+        }
+        try{
             TaylorToursDTO tourDto = new TaylorToursDTO();
 
             tourDto.setIdTour(tourSelecionada.getIdTour());
@@ -115,6 +160,8 @@ public class MainController
 
             carregarTours();
             limparCampos();
+        }catch (NumberFormatException e) {
+            mostrarAviso("Valores numéricos inválidos na edição!", "red");
         }
 
     }
@@ -131,8 +178,25 @@ public class MainController
             TaylorToursDAO tourDao = new TaylorToursDAO();
             tourDao.excluirTour(tourSelecionada.getIdTour());
 
+            mostrarAviso("Tour deletada com sucesso!", "blue");
             carregarTours();
             limparCampos();
         }
+    }
+
+    @FXML
+    private void btnSobreAction(ActionEvent event) {
+        // Cria o alerta do tipo INFORMATION (Informativo)
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+
+        // Define os textos da janela
+        alerta.setTitle("Sobre o Sistema: Gerenciador de Turnês Taylor Swift");
+        alerta.setHeaderText("Este programa permite o controle sobre a história dos palcos de uma das maiores artistas do século,\n desde a Fearless Tour até o fenômeno global The Eras Tour");
+        alerta.setContentText("Bem-vindo ao Sistema de Histórico de Turnês!\n" +
+                "Aqui você pode cadastrar novas datas, atualizar o faturamento dos shows, listar as turnês de cada era e deletar registros antigos. \n" +
+                "Explore dados sobre as datas, álbuns base e quantidade de shows que definiram a trajetória da Taylor Swift nos palcos do mundo inteiro.");
+
+        // Exibe o alerta na tela e espera o usuário clicar em OK
+        alerta.showAndWait();
     }
 }
