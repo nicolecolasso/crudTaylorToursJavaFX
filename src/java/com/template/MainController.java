@@ -70,7 +70,7 @@ public class MainController
 
     @FXML
     private void carregarCampos() {
-        TaylorToursDTO tourDto = tblTaylorTours.getSelectionModel().getSelectedItem(); //cria objeto DTO que recebe informações da tabela
+        TaylorToursDTO tourDto = tblTaylorTours.getSelectionModel().getSelectedItem(); //Cria objeto DTO que recebe informações da tabela
 
         if (tourDto != null) {
             txtId.setText(String.valueOf(tourDto.getIdTour()));
@@ -95,7 +95,7 @@ public class MainController
         colQtdeShows.setCellValueFactory(new PropertyValueFactory<>("quantidadeShows"));
         colFaturamento.setCellValueFactory(new PropertyValueFactory<>("faturamentoEstimado"));
         imgTaylor.setImage(new Image(getClass().getResourceAsStream("/com/template/taylor.png")));
-        /* Carregamento de fontes customizadas TrueType (.ttf) */
+        // Carregamento de fontes customizadas (.ttf)
         String[] fontes = {
                 "Antonio.ttf", "EBGaramond.ttf", "GreatVibe.ttf", "ImperialScript.ttf",
                 "InstrumentSerif.ttf", "Inter.ttf", "Montserrat.ttf",
