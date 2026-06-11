@@ -43,8 +43,8 @@ public class MainController
     @FXML
     private void carregarTours(){
         TaylorToursDAO objToursDAO = new TaylorToursDAO();
-        ArrayList<TaylorToursDTO> listaTours = objToursDAO.visualizarTour(); //recebe o return do dao
-        tblTaylorTours.setItems(FXCollections.observableArrayList(listaTours)); //encaixa o return na tabela por meio do setItems, utilizando as bibliotecas e com o observable encaixa na tabela, já que é do mesmo tipo do arraylist e já foi indicado no initialize
+        ArrayList<TaylorToursDTO> listaTours = objToursDAO.visualizarTour();
+        tblTaylorTours.setItems(FXCollections.observableArrayList(listaTours));
     }
 
     @FXML
