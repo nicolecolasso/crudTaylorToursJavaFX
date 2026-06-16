@@ -70,15 +70,15 @@ public class MainController
 
     @FXML
     private void carregarCampos() {
-        TaylorToursDTO tourDto = tblTaylorTours.getSelectionModel().getSelectedItem(); //Cria objeto DTO que recebe informações da tabela
+        TaylorToursDTO tourDTO = tblTaylorTours.getSelectionModel().getSelectedItem(); //Cria objeto DTO que recebe informações da tabela
 
-        if (tourDto != null) {
-            txtId.setText(String.valueOf(tourDto.getIdTour()));
-            txtNome.setText(tourDto.getNomeTour());
-            txtAlbumBase.setText(tourDto.getAlbumBase());
-            dpDataInicio.setValue(tourDto.getDataInicio());
-            txtQtdeShows.setText(String.valueOf(tourDto.getQuantidadeShows()));
-            txtFaturamentoEstimado.setText(String.valueOf(tourDto.getFaturamentoEstimado()));
+        if (tourDTO != null) {
+            txtId.setText(String.valueOf(tourDTO.getIdTour()));
+            txtNome.setText(tourDTO.getNomeTour());
+            txtAlbumBase.setText(tourDTO.getAlbumBase());
+            dpDataInicio.setValue(tourDTO.getDataInicio());
+            txtQtdeShows.setText(String.valueOf(tourDTO.getQuantidadeShows()));
+            txtFaturamentoEstimado.setText(String.valueOf(tourDTO.getFaturamentoEstimado()));
             btnEditar.setDisable(false);
             btnDeletar.setDisable(false);
             btnSalvar.setDisable(true);
@@ -127,15 +127,15 @@ public class MainController
             int quantidadeShows = txtQtdeShows.getText().isEmpty() ? 0 : Integer.parseInt(txtQtdeShows.getText());
             double faturamentoEstimado = txtFaturamentoEstimado.getText().isEmpty() ? 0 : Double.parseDouble(txtFaturamentoEstimado.getText());
 
-            TaylorToursDTO tourDto = new TaylorToursDTO();
-            tourDto.setNomeTour(nomeTour);
-            tourDto.setAlbumBase(albumBase);
-            tourDto.setDataInicio(dataInicio);
-            tourDto.setQuantidadeShows(quantidadeShows);
-            tourDto.setFaturamentoEstimado(faturamentoEstimado);
+            TaylorToursDTO tourDTO = new TaylorToursDTO();
+            tourDTO.setNomeTour(nomeTour);
+            tourDTO.setAlbumBase(albumBase);
+            tourDTO.setDataInicio(dataInicio);
+            tourDTO.setQuantidadeShows(quantidadeShows);
+            tourDTO.setFaturamentoEstimado(faturamentoEstimado);
 
-            TaylorToursDAO tourDao = new TaylorToursDAO();
-            tourDao.cadastrarTour(tourDto);
+            TaylorToursDAO tourDAO = new TaylorToursDAO();
+            tourDAO.cadastrarTour(tourDTO);
 
             mostrarAviso("Turnê cadastrada com sucesso!", "blue");
 
@@ -155,18 +155,18 @@ public class MainController
             return;
         }
         try{
-            TaylorToursDTO tourDto = new TaylorToursDTO();
+            TaylorToursDTO tourDTO = new TaylorToursDTO();
 
-            tourDto.setIdTour(tourSelecionada.getIdTour());
-            tourDto.setNomeTour(txtNome.getText());
-            tourDto.setAlbumBase(txtAlbumBase.getText());
-            tourDto.setDataInicio(dpDataInicio.getValue());
-            tourDto.setQuantidadeShows(Integer.parseInt(txtQtdeShows.getText()));
-            tourDto.setFaturamentoEstimado(Double.parseDouble(txtFaturamentoEstimado.getText()));
+            tourDTO.setIdTour(tourSelecionada.getIdTour());
+            tourDTO.setNomeTour(txtNome.getText());
+            tourDTO.setAlbumBase(txtAlbumBase.getText());
+            tourDTO.setDataInicio(dpDataInicio.getValue());
+            tourDTO.setQuantidadeShows(Integer.parseInt(txtQtdeShows.getText()));
+            tourDTO.setFaturamentoEstimado(Double.parseDouble(txtFaturamentoEstimado.getText()));
 
-            TaylorToursDAO tourDao = new TaylorToursDAO();
+            TaylorToursDAO tourDAO = new TaylorToursDAO();
 
-            tourDao.alterarTour(tourDto);
+            tourDAO.alterarTour(tourDTO);
 
             carregarTours();
             limparCampos();
@@ -185,8 +185,8 @@ public class MainController
     private void btnDeletarAction(ActionEvent event) {
         TaylorToursDTO tourSelecionada = tblTaylorTours.getSelectionModel().getSelectedItem();
         if (tourSelecionada != null) {
-            TaylorToursDAO tourDao = new TaylorToursDAO();
-            tourDao.excluirTour(tourSelecionada.getIdTour());
+            TaylorToursDAO tourDAO = new TaylorToursDAO();
+            tourDAO.excluirTour(tourSelecionada.getIdTour());
 
             mostrarAviso("Tour deletada com sucesso!", "blue");
             carregarTours();
