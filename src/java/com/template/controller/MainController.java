@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import static com.template.util.DialogUtil.*;
+import static com.template.validator.TaylorTourValidator.*;
 
 /*
     Classe Controladora da Interface Gráfica (View).
@@ -117,65 +118,77 @@ public class MainController
     @FXML
     private void btnSalvarAction(ActionEvent event) {
         //Validação dos campos obrigatórios
-        if (txtNome.getText().isEmpty() || txtAlbumBase.getText().isEmpty() || dpDataInicio.getValue() == null) {
+        if (validarCampos(txtNome, txtAlbumBase, dpDataInicio)) {
             mostrarAviso("Preencha todos os campos obrigatórios!", "red");
             return;
         }
-        //try catch para garantir que todos os campos numéricos são numéricos
-        try{
-            String nomeTour = txtNome.getText();
-            String albumBase = txtAlbumBase.getText();
-            java.time.LocalDate dataInicio = dpDataInicio.getValue();
-            // Validação para evitar falhas de compilação caso campos não obrigatórios sejam enviados vazios
-            int quantidadeShows = txtQtdeShows.getText().isEmpty() ? 0 : Integer.parseInt(txtQtdeShows.getText());
-            double faturamentoEstimado = txtFaturamentoEstimado.getText().isEmpty() ? 0 : Double.parseDouble(txtFaturamentoEstimado.getText());
-
-            TaylorToursDTO tourDTO = new TaylorToursDTO();
-            tourDTO.setNomeTour(nomeTour);
-            tourDTO.setAlbumBase(albumBase);
-            tourDTO.setDataInicio(dataInicio);
-            tourDTO.setQuantidadeShows(quantidadeShows);
-            tourDTO.setFaturamentoEstimado(faturamentoEstimado);
-
-            TaylorToursDAO tourDAO = new TaylorToursDAO();
-            tourDAO.cadastrarTour(tourDTO);
-
-            mostrarAviso("Turnê cadastrada com sucesso!", "blue");
-
-            carregarTours();
-            limparCampos();
-        } catch (NumberFormatException e) {
-            mostrarAviso("Shows e Faturamento devem ser números.", "red");
+        //validar campos numéricos
+        if (!validarNumeric(txtQtdeShows, txtFaturamentoEstimado)) {
+            mostrarAviso("Shows e Faturamento devem ser números válidos.", "red");
+            return;
         }
+
+        String nomeTour = txtNome.getText();
+        String albumBase = txtAlbumBase.getText();
+        java.time.LocalDate dataInicio = dpDataInicio.getValue();
+
+        // Validação para evitar falhas de compilação caso campos não obrigatórios sejam enviados vazios
+        int quantidadeShows = converterQtdeShows(txtQtdeShows);
+        double faturamentoEstimado = converterFaturamentoEstimado(txtFaturamentoEstimado);
+
+        TaylorToursDTO tourDTO = new TaylorToursDTO();
+        tourDTO.setNomeTour(nomeTour);
+        tourDTO.setAlbumBase(albumBase);
+        tourDTO.setDataInicio(dataInicio);
+        tourDTO.setQuantidadeShows(quantidadeShows);
+        tourDTO.setFaturamentoEstimado(faturamentoEstimado);
+
+        TaylorToursDAO tourDAO = new TaylorToursDAO();
+        tourDAO.cadastrarTour(tourDTO);
+
+        mostrarAviso("Turnê cadastrada com sucesso!", "blue");
+
+        carregarTours();
+        limparCampos();
     }
 
     @FXML
     private void btnEditarAction(ActionEvent event) {
         TaylorToursDTO tourSelecionada = tblTaylorTours.getSelectionModel().getSelectedItem();
 
-        if (txtNome.getText().isEmpty() || txtAlbumBase.getText().isEmpty() || dpDataInicio.getValue() == null) {
+        //confere se tem linha selecionada
+        if(validarLinha(tourSelecionada)){
+            mostrarAviso("Selecione uma tour na tabela para editar!", "red");
+            return;
+        }
+
+        //validar campos obrigatórios
+        if(validarCampos(txtNome, txtAlbumBase, dpDataInicio)){
             mostrarAviso("Campos obrigatórios não podem ficar vazios!", "red");
             return;
         }
-        try{
-            TaylorToursDTO tourDTO = new TaylorToursDTO();
 
-            tourDTO.setIdTour(tourSelecionada.getIdTour());
-            tourDTO.setNomeTour(txtNome.getText());
-            tourDTO.setAlbumBase(txtAlbumBase.getText());
-            tourDTO.setDataInicio(dpDataInicio.getValue());
-            tourDTO.setQuantidadeShows(Integer.parseInt(txtQtdeShows.getText()));
-            tourDTO.setFaturamentoEstimado(Double.parseDouble(txtFaturamentoEstimado.getText()));
-
-            TaylorToursDAO tourDAO = new TaylorToursDAO();
-
-            tourDAO.alterarTour(tourDTO);
-
-            carregarTours();
-            limparCampos();
-        }catch (NumberFormatException e) {
-            mostrarAviso("Valores numéricos inválidos na edição!", "red");
+        //validar campos numéricos
+        if (!validarNumeric(txtQtdeShows, txtFaturamentoEstimado)) {
+            mostrarAviso("Shows e Faturamento devem ser números válidos.", "red");
+            return;
         }
+
+        TaylorToursDTO tourDTO = new TaylorToursDTO();
+
+        tourDTO.setIdTour(tourSelecionada.getIdTour());
+        tourDTO.setNomeTour(txtNome.getText());
+        tourDTO.setAlbumBase(txtAlbumBase.getText());
+        tourDTO.setDataInicio(dpDataInicio.getValue());
+        tourDTO.setQuantidadeShows(converterQtdeShows(txtQtdeShows));
+        tourDTO.setFaturamentoEstimado(converterFaturamentoEstimado(txtFaturamentoEstimado));
+
+        TaylorToursDAO tourDAO = new TaylorToursDAO();
+
+        tourDAO.alterarTour(tourDTO);
+
+        carregarTours();
+        limparCampos();
 
     }
 
