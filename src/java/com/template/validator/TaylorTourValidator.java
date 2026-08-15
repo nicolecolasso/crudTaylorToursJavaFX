@@ -6,35 +6,39 @@ import javafx.scene.control.TextField;
 
 public class TaylorTourValidator {
 
-    public static boolean validarCampos(TextField txtNome, TextField txtAlbumBase, DatePicker dpDataInicio){
-        return txtNome.getText().trim().isEmpty() || txtAlbumBase.getText().trim().isEmpty() || dpDataInicio.getValue() == null;
+    public static boolean validarCampos(TextField nome, TextField album, DatePicker data) {
+        return nome.getText().trim().isEmpty()
+                || album.getText().trim().isEmpty()
+                || data.getValue() == null;
     }
 
-    public static boolean validarNumeric(TextField txtQtdeShows, TextField txtFaturamentoEstimado){
+    public static boolean validarNumeric(TextField shows, TextField faturamento) {
         try {
-            if (!txtQtdeShows.getText().trim().isEmpty()) {
-                Integer.parseInt(txtQtdeShows.getText().trim());
-            }
-            if (!txtFaturamentoEstimado.getText().trim().isEmpty()) {
-                Double.parseDouble(txtFaturamentoEstimado.getText().trim());
-            }
+            if (!shows.getText().isEmpty()) Integer.parseInt(shows.getText().trim());
+            if (!faturamento.getText().isEmpty()) Double.parseDouble(faturamento.getText().trim());
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
-    public static boolean validarLinha(TaylorToursDTO tourSelecionada) {
-        return tourSelecionada == null;
+    public static boolean validarLinha(TaylorToursDTO tour) {
+        return tour == null;
     }
 
-    public static int converterQtdeShows(TextField txtQtdeShows){
-        int quantidadeShows = txtQtdeShows.getText().isEmpty() ? 0 : Integer.parseInt(txtQtdeShows.getText());
-        return quantidadeShows;
+    public static int converterQtdeShows(TextField shows) {
+        try {
+            return Integer.parseInt(shows.getText().trim());
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
-    public static double converterFaturamentoEstimado(TextField txtFaturamentoEstimado){
-        double faturamentoEstimado = txtFaturamentoEstimado.getText().isEmpty() ? 0 : Double.parseDouble(txtFaturamentoEstimado.getText());
-        return faturamentoEstimado;
+    public static double converterFaturamentoEstimado(TextField faturamento) {
+        try {
+            return Double.parseDouble(faturamento.getText().trim());
+        } catch (Exception e) {
+            return 0.0;
+        }
     }
 }
