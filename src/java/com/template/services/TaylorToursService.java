@@ -1,7 +1,9 @@
 package com.template.services;
 
+import com.template.converter.TaylorToursConverter;
 import com.template.model.dao.TaylorToursDAO;
 import com.template.model.dto.TaylorToursDTO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /*
@@ -17,12 +19,26 @@ public class TaylorToursService {
         return tourDAO.visualizarTour();
     }
 
-    public void salvar(TaylorToursDTO tourDTO) {
-        tourDAO.cadastrarTour(tourDTO);
+    // TaylorToursService
+    public void cadastrar(String nome, String album, LocalDate data, String qtdeShows, String faturamento) {
+        TaylorToursDTO dto = montarDTO(null, nome, album, data, qtdeShows, faturamento);
+        tourDAO.cadastrarTour(dto);
     }
 
-    public void atualizar(TaylorToursDTO tourDTO) {
-        tourDAO.alterarTour(tourDTO);
+    public void atualizar(int id, String nome, String album, LocalDate data, String qtdeShows, String faturamento) {
+        TaylorToursDTO dto = montarDTO(id, nome, album, data, qtdeShows, faturamento);
+        tourDAO.alterarTour(dto);
+    }
+
+    private TaylorToursDTO montarDTO(Integer id, String nome, String album, LocalDate data, String qtdeShows, String faturamento) {
+        TaylorToursDTO dto = new TaylorToursDTO();
+        if (id != null) dto.setIdTour(id);
+        dto.setNomeTour(nome);
+        dto.setAlbumBase(album);
+        dto.setDataInicio(data);
+        dto.setQuantidadeShows(TaylorToursConverter.converterQtdeShows(qtdeShows));
+        dto.setFaturamentoEstimado(TaylorToursConverter.converterFaturamentoEstimado(faturamento));
+        return dto;
     }
 
     public void deletar(int id) {

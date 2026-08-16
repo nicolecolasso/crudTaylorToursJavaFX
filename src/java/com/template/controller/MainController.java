@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 
 import static com.template.util.DialogUtil.showInformation;
-import static com.template.validator.TaylorTourValidator.*;
+import static com.template.validator.TaylorToursValidator.*;
 
 public class MainController {
 
@@ -93,14 +93,13 @@ public class MainController {
             MessageLabelUtil.mostrarAviso(lblMensagem, "Preencha todos os campos obrigatórios!", "red");
             return;
         }
-
         if (!validarNumeric(txtQtdeShows, txtFaturamentoEstimado)) {
             MessageLabelUtil.mostrarAviso(lblMensagem, "Shows e Faturamento devem ser números válidos.", "red");
             return;
         }
 
-        TaylorToursDTO tourDTO = criarDTO(null);
-        tourService.salvar(tourDTO);
+        tourService.cadastrar(txtNome.getText(), txtAlbumBase.getText(), dpDataInicio.getValue(),
+                txtQtdeShows.getText(), txtFaturamentoEstimado.getText());
 
         MessageLabelUtil.mostrarAviso(lblMensagem, "Turnê cadastrada com sucesso!", "blue");
         carregarTours();
@@ -126,9 +125,10 @@ public class MainController {
             return;
         }
 
-        TaylorToursDTO tourDTO = criarDTO(tourSelecionada.getIdTour());
-        tourService.atualizar(tourDTO);
+        tourService.atualizar(tourSelecionada.getIdTour(), txtNome.getText(), txtAlbumBase.getText(),
+                dpDataInicio.getValue(), txtQtdeShows.getText(), txtFaturamentoEstimado.getText());
 
+        MessageLabelUtil.mostrarAviso(lblMensagem, "Turnê atualizada com sucesso!", "blue");
         carregarTours();
         limparCampos();
     }
@@ -152,16 +152,5 @@ public class MainController {
     @FXML
     private void btnSobreAction(ActionEvent event) {
         showInformation();
-    }
-
-    private TaylorToursDTO criarDTO(Integer id) {
-        TaylorToursDTO dto = new TaylorToursDTO();
-        if (id != null) dto.setIdTour(id);
-        dto.setNomeTour(txtNome.getText());
-        dto.setAlbumBase(txtAlbumBase.getText());
-        dto.setDataInicio(dpDataInicio.getValue());
-        dto.setQuantidadeShows(converterQtdeShows(txtQtdeShows));
-        dto.setFaturamentoEstimado(converterFaturamentoEstimado(txtFaturamentoEstimado));
-        return dto;
     }
 }
