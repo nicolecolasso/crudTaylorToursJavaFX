@@ -58,7 +58,7 @@
 
             <ImageView fx:id="imgTaylor" fitHeight="112.0" fitWidth="180.0" layoutX="655.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
 
-            <Label fx:id="lblMensagem" alignment="center" layoutX="655.0" layoutY="175.0" prefHeight="60.0" prefWidth="180.0" style="-fx-font-family: 'Instrument Serif'; -fx-font-size: 16;" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="lblMensagem" alignment="center" layoutX="655.0" layoutY="175.0" prefHeight="100.0" prefWidth="180.0" style="-fx-font-family: 'Instrument Serif'; -fx-font-size: 16;" textAlignment="CENTER" wrapText="true" />
 
             <Button fx:id="btnSobre" layoutX="655.0" layoutY="310.0" mnemonicParsing="false" onAction="#btnSobreAction" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: FFA500; -fx-font-family: 'Oswald'; -fx-font-size: 16; -fx-cursor: hand;" text="Sobre o sistema" textFill="BLACK" />
          </children>
