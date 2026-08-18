@@ -11,8 +11,11 @@ public class AnoTurneValidador implements Validador<LocalDate>{
 
     @Override
     public boolean validar() {
+        if (this.valor == null) {
+            return false;
+        }
         int ano = this.valor.getYear();
-        return !((ano > 2009) && (ano < 2023));
+        return ano >= 2009 && ano <= 2023;
     }
 
     @Override

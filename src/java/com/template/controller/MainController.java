@@ -89,12 +89,7 @@ public class MainController {
 
     @FXML
     private void btnSalvarAction(ActionEvent event) {
-        if (validarCampos(txtNome, txtAlbumBase, dpDataInicio)) {
-            MessageLabelUtil.mostrarAviso(lblMensagem, "Preencha todos os campos obrigatórios!", "red");
-            return;
-        }
-        if (!validarNumeric(txtQtdeShows, txtFaturamentoEstimado)) {
-            MessageLabelUtil.mostrarAviso(lblMensagem, "Shows e Faturamento devem ser números válidos.", "red");
+        if (!validarTudo(txtNome, txtAlbumBase, dpDataInicio, txtQtdeShows, txtFaturamentoEstimado, lblMensagem)) {
             return;
         }
 
@@ -110,18 +105,11 @@ public class MainController {
     private void btnEditarAction(ActionEvent event) {
         TaylorToursDTO tourSelecionada = tblTaylorTours.getSelectionModel().getSelectedItem();
 
-        if (validarLinha(tourSelecionada)) {
-            MessageLabelUtil.mostrarAviso(lblMensagem, "Selecione uma tour na tabela para editar!", "red");
+        if (!validarLinhaSelecionada(lblMensagem, tourSelecionada)) {
             return;
         }
 
-        if (validarCampos(txtNome, txtAlbumBase, dpDataInicio)) {
-            MessageLabelUtil.mostrarAviso(lblMensagem, "Campos obrigatórios não podem ficar vazios!", "red");
-            return;
-        }
-
-        if (!validarNumeric(txtQtdeShows, txtFaturamentoEstimado)) {
-            MessageLabelUtil.mostrarAviso(lblMensagem, "Shows e Faturamento devem ser números válidos.", "red");
+        if (!validarTudo(txtNome, txtAlbumBase, dpDataInicio, txtQtdeShows, txtFaturamentoEstimado, lblMensagem)) {
             return;
         }
 
