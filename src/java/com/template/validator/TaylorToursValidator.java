@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
 
-public class TaylorToursValidator {
+public class TaylorToursValidator implements ITaylorToursValidador {
 
-    public static boolean validarTudo(TextField nome, TextField album, DatePicker data, TextField shows, TextField faturamento, Label lblMensagem) {
+    public boolean validarTudo(TextField nome, TextField album, DatePicker data, TextField shows, TextField faturamento, Label lblMensagem) {
         List<Validador<?>> validadores = new ArrayList<>();
 
         MessageLabelUtil.limparAviso(lblMensagem);

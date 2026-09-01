@@ -4,6 +4,7 @@ import com.template.model.dto.TaylorToursDTO;
 import com.template.services.TaylorToursService;
 import com.template.util.MessageLabelUtil;
 import com.template.util.UIUtil;
+import com.template.validator.ITaylorToursValidador;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +18,12 @@ import static com.template.util.DialogUtil.showInformation;
 import static com.template.validator.TaylorToursValidator.*;
 
 public class MainController {
+
+    private final ITaylorToursValidador tourValidador;
+
+    public MainController(ITaylorToursValidador tourValidador) {
+        this.tourValidador = tourValidador;
+    }
 
     @FXML private Button btnSalvar, btnEditar, btnDeletar, btnLimpar, btnSobre;
     @FXML private TableView<TaylorToursDTO> tblTaylorTours;
@@ -89,7 +96,7 @@ public class MainController {
 
     @FXML
     private void btnSalvarAction(ActionEvent event) {
-        if (!validarTudo(txtNome, txtAlbumBase, dpDataInicio, txtQtdeShows, txtFaturamentoEstimado, lblMensagem)) {
+        if (!tourValidador.validarTudo(txtNome, txtAlbumBase, dpDataInicio, txtQtdeShows, txtFaturamentoEstimado, lblMensagem)) {
             return;
         }
 
@@ -109,7 +116,7 @@ public class MainController {
             return;
         }
 
-        if (!validarTudo(txtNome, txtAlbumBase, dpDataInicio, txtQtdeShows, txtFaturamentoEstimado, lblMensagem)) {
+        if (!tourValidador.validarTudo(txtNome, txtAlbumBase, dpDataInicio, txtQtdeShows, txtFaturamentoEstimado, lblMensagem)) {
             return;
         }
 
