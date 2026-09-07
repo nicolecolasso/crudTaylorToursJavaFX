@@ -61,7 +61,7 @@ public class TaylorToursDAO {
             }
 
         } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Erro ao cadastrar turne.", ex);
+            logger.log(Level.SEVERE, "Erro ao visualizar turne.", ex);
         }
         return listaTours;
     }
@@ -81,7 +81,7 @@ public class TaylorToursDAO {
             return linhasAfetadas > 0;
 
         } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Erro ao cadastrar turne.", ex);
+            logger.log(Level.SEVERE, "Erro ao alterar turne.", ex);
             return false;
         }
     }
@@ -96,7 +96,7 @@ public class TaylorToursDAO {
             return linhasAfetadas > 0;
 
         } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Erro ao cadastrar turne.", ex);
+            logger.log(Level.SEVERE, "Erro ao excluir turne.", ex);
             return false;
         }
     }

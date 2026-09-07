@@ -14,12 +14,8 @@ public class FaturamentoValidador implements Validador<String> {
         if (valor == null || valor.trim().isEmpty()) {
             return false;
         }
-        try {
-            Double.parseDouble(valor.trim());
-            return TaylorToursConverter.converterFaturamentoEstimado(valor) > 0.0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        double valorConvertido = TaylorToursConverter.converterFaturamentoEstimado(valor);
+        return valorConvertido > 0.0;
     }
 
     @Override
