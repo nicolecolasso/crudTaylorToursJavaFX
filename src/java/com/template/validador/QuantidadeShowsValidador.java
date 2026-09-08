@@ -1,4 +1,4 @@
-package com.template.validator;
+package com.template.validador;
 
 import com.template.converter.TaylorToursConverter;
 

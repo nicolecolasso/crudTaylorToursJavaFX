@@ -1,6 +1,5 @@
-package com.template.validator;
+package com.template.validador;
 
-import com.template.model.dto.TaylorToursDTO;
 import com.template.util.MessageLabelUtil;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
 
-public class TaylorToursValidator implements ITaylorToursValidador {
+public class TaylorToursValidador implements ITaylorToursValidador {
 
     public boolean validarTudo(TextField nome, TextField album, DatePicker data, TextField shows, TextField faturamento, Label lblMensagem) {
         List<Validador<?>> validadores = new ArrayList<>();
@@ -16,12 +15,12 @@ public class TaylorToursValidator implements ITaylorToursValidador {
         MessageLabelUtil.limparAviso(lblMensagem);
 
         //Campos Obrigatórios de Texto
-        validadores.add(new CampoObrigatorioValidador("Nome", nome.getText()));
-        validadores.add(new CampoObrigatorioValidador("Álbum", album.getText()));
+        validadores.add(new CamposObrigatoriosValidador("Nome", nome.getText()));
+        validadores.add(new CamposObrigatoriosValidador("Álbum", album.getText()));
 
         // Validação da Data
         if (data.getValue() == null) {
-            validadores.add(new CampoObrigatorioValidador("Data", null));
+            validadores.add(new CamposObrigatoriosValidador("Data", null));
         } else {
             validadores.add(new AnoTurneValidador(data.getValue()));
         }

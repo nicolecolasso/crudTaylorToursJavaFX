@@ -1,4 +1,4 @@
-package com.template.validator;
+package com.template.validador;
 
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;

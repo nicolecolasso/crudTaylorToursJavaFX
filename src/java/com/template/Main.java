@@ -1,8 +1,8 @@
 package com.template;
 
 import com.template.controller.MainController;
-import com.template.validator.ITaylorToursValidador;
-import com.template.validator.TaylorToursValidator;
+import com.template.validador.ITaylorToursValidador;
+import com.template.validador.TaylorToursValidador;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +15,7 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        ITaylorToursValidador tourValidador = new TaylorToursValidator();
+        ITaylorToursValidador tourValidador = new TaylorToursValidador();
 
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("main.fxml"));
 

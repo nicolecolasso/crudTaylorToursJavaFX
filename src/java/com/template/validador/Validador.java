@@ -1,4 +1,4 @@
-package com.template.validator;
+package com.template.validador;
 
 public interface Validador <T> {
     boolean validar();

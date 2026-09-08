@@ -4,8 +4,8 @@ import com.template.model.dto.TaylorToursDTO;
 import com.template.services.TaylorToursService;
 import com.template.util.MessageLabelUtil;
 import com.template.util.UIUtil;
-import com.template.validator.ITaylorToursValidador;
-import com.template.validator.LinhaSelecionadaValidador;
+import com.template.validador.ITaylorToursValidador;
+import com.template.validador.LinhaSelecionadaValidador;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 
 import static com.template.util.DialogUtil.showInformation;
-import static com.template.validator.TaylorToursValidator.*;
 
 public class MainController {
 

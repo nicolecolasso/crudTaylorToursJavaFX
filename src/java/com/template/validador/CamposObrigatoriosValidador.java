@@ -1,10 +1,10 @@
-package com.template.validator;
+package com.template.validador;
 
-public class CampoObrigatorioValidador implements Validador<String>{
+public class CamposObrigatoriosValidador implements Validador<String>{
     private final String nomeCampo;
     private final String valor;
 
-    public CampoObrigatorioValidador(String nomeCampo, String valor){
+    public CamposObrigatoriosValidador(String nomeCampo, String valor){
         this.nomeCampo = nomeCampo;
         this.valor = valor;
     }
