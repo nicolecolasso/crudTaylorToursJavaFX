@@ -39,15 +39,4 @@ public class TaylorToursValidator implements ITaylorToursValidador {
         }
         return true;
     }
-
-    public static boolean validarLinhaSelecionada(Label lblMensagem, TaylorToursDTO tour) {
-        LinhaSelecionadaValidador validador = new LinhaSelecionadaValidador(tour);
-
-        if (!validador.validar()) {
-            MessageLabelUtil.mostrarAviso(lblMensagem, validador.getMensagemErro(), "red");
-            return false;
-        }
-
-        return true;
-    }
 }

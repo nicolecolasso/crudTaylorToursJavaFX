@@ -5,6 +5,7 @@ import com.template.services.TaylorToursService;
 import com.template.util.MessageLabelUtil;
 import com.template.util.UIUtil;
 import com.template.validator.ITaylorToursValidador;
+import com.template.validator.LinhaSelecionadaValidador;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -112,7 +113,9 @@ public class MainController {
     private void btnEditarAction(ActionEvent event) {
         TaylorToursDTO tourSelecionada = tblTaylorTours.getSelectionModel().getSelectedItem();
 
-        if (!validarLinhaSelecionada(lblMensagem, tourSelecionada)) {
+        LinhaSelecionadaValidador linhaValidador = new LinhaSelecionadaValidador(tourSelecionada);
+        if (!linhaValidador.validar()) {
+            MessageLabelUtil.mostrarAviso(lblMensagem, linhaValidador.getMensagemErro(), "red");
             return;
         }
 
@@ -131,12 +134,17 @@ public class MainController {
     @FXML
     private void btnDeletarAction(ActionEvent event) {
         TaylorToursDTO tourSelecionada = tblTaylorTours.getSelectionModel().getSelectedItem();
-        if (tourSelecionada != null) {
-            tourService.deletar(tourSelecionada.getIdTour());
-            MessageLabelUtil.mostrarAviso(lblMensagem, "Tour deletada com sucesso!", "blue");
-            carregarTours();
-            limparCampos();
+
+        LinhaSelecionadaValidador linhaValidador = new LinhaSelecionadaValidador(tourSelecionada);
+        if (!linhaValidador.validar()) {
+            MessageLabelUtil.mostrarAviso(lblMensagem, linhaValidador.getMensagemErro(), "red");
+            return;
         }
+
+        tourService.deletar(tourSelecionada.getIdTour());
+        MessageLabelUtil.mostrarAviso(lblMensagem, "Tour deletada com sucesso!", "blue");
+        carregarTours();
+        limparCampos();
     }
 
     @FXML
