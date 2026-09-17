@@ -12,7 +12,7 @@ public class QuantidadeShowsValidador implements Validador<String> {
     @Override
     public boolean validar() {
         if (valor == null || valor.trim().isEmpty()) {
-            return false;
+            return true; //Não é obrigatório
         }
         try {
             // Se não for um inteiro válido, Integer.parseInt lança NumberFormatException

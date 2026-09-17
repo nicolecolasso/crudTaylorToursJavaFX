@@ -12,7 +12,7 @@ public class FaturamentoValidador implements Validador<String> {
     @Override
     public boolean validar() {
         if (valor == null || valor.trim().isEmpty()) {
-            return false;
+            return true; //Não é obrigatório
         }
         double valorConvertido = TaylorToursConverter.converterFaturamentoEstimado(valor);
         return valorConvertido > 0.0;
